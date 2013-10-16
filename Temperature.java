@@ -30,6 +30,7 @@ public class Temperature {
   private final double valueInKelvin;
   private Units units;
 
+
   /**
    * Create a new {@code Temperature} with given attributes
    * @param value numerical value of {@code Temperature}
@@ -57,11 +58,20 @@ public class Temperature {
       double convertedValue;
 
       switch (units) {
-          case KELVIN:     convertedValue = value;
+          case KELVIN:     if(value < 0){
+        	  			   		throw new IllegalArgumentException();
+          				   }
+          				   else convertedValue = value;
                            break;
-          case CELSIUS:    convertedValue = value + 273.15;
+          case CELSIUS:    if(value < -273.15){
+        	  					throw new IllegalArgumentException();
+          				   }
+          				   else convertedValue = value + 273.15;
                            break;
-          case FAHRENHEIT: convertedValue = (value + 459.67) * 5.0/9.0;
+          case FAHRENHEIT: if (value < -459.67){
+        	  			   throw new IllegalArgumentException();
+ 			   		       }
+          				   else convertedValue = (value + 459.67) * 5.0/9.0;
                            break;
           default:         throw new IllegalArgumentException();
       }
@@ -76,7 +86,7 @@ public class Temperature {
       double convertedValue;
 
       switch (units) {
-          case KELVIN:     convertedValue = value;
+          case KELVIN: 	   convertedValue = value;
                            break;
           case CELSIUS:    convertedValue = value - 273.15;
                            break;
